@@ -116,10 +116,10 @@ def Initial(qc,lam,q0,q1,q2,q3):
 def Ising(qc,lam,q0,q1,q2,q3,c0,c1,c2,c3):
     Initial(qc,lam,q0,q1,q2,q3)
     Udisg(qc,lam,q0,q1,q2,q3)
-    qc.measure(q0,c0)
-    qc.measure(q1,c1)
-    qc.measure(q2,c2)
-    qc.measure(q3,c3)
+   # qc.measure(q0,c0)
+   # qc.measure(q1,c1)
+   # qc.measure(q2,c2)
+   # qc.measure(q3,c3)
 
 
 def get_ising(lam=0.5):
