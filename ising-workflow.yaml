@@ -17,10 +17,10 @@ resources:
   parameters:
     url: "git@github.com:zapatacomputing/z-quantum-core.git"
     branch: "master"
-- name: qe-openfermion
+- name: qe-forest
   type: git
   parameters:
-    url: "git@github.com:zapatacomputing/qe-openfermion.git"
+    url: "git@github.com:zapatacomputing/qe-forest.git"
     branch: "master"
 - name: qe-psi4
   type: git
@@ -71,7 +71,7 @@ spec:
           - circuit:
               from: '{{steps.create-circuit.outputs.artifacts.circuit}}'
           parameters:
-          - backend-specs: "{'module_name': 'qeqhipster.simulator', 'function_name': 'QHipsterSimulator'}"
-          - resources: [z-quantum-core, get-circuit]
+          - backend-specs: "{'module_name': 'qeforest.simulator', 'function_name': 'ForestSimulator'}"
+          - resources: [z-quantum-core, qe-forest, get-circuit]
           - docker-image: z-quantum-default
           - docker-tag: latest
