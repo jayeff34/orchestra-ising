@@ -38,9 +38,9 @@ def fSWAP(qp,q0,q1):
 # control qubit: q1
 # target qubit: q0
 def CH2(qp,q0,q1):
-    RZ(qp,-math.pi/2.,q0)
+    RZ(qp,-pi/2.,q0)
     qp.h(q0)
-    RZ(qp,-math.pi/4.,q0)
+    RZ(qp,-pi/4.,q0)
     qp.h(q0)
     qp.h(q1)
     qp.cx(q0,q1)
