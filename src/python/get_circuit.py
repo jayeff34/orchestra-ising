@@ -67,11 +67,11 @@ def F1(qp,q0,q1):
 
 # ROTATIONAL GATES
 def RZ(qp,th,q0):
-    qp.u1(-th,q0)
+    qp.rz(-th,q0)
 def RY(qp,th,q0):
-    qp.u3(th,0.,0.,q0)
+    qp.ry(th,q0)
 def RX(qp,th,q0):
-    qp.u3(th,0.,pi,q0)
+    qp.rx(th,q0)
 
 # CRX (Controlled-RX)
 # control qubit: q0
