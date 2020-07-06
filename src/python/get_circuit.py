@@ -38,9 +38,9 @@ def fSWAP(qp,q0,q1):
 # control qubit: q1
 # target qubit: q0
 def CH2(qp,q0,q1):
-    qp.sdg(q0)
+    RZ(qp,-math.pi/2.,q0)
     qp.h(q0)
-    qp.tdg(q0)
+    RZ(qp,-math.pi/4.,q0)
     qp.h(q0)
     qp.h(q1)
     qp.cx(q0,q1)
@@ -62,7 +62,7 @@ def F0(qp,q0,q1):
 
 def F1(qp,q0,q1):
     F2(qp,q0,q1)
-    qp.sdg(q0)
+    RZ(qp,-math.pi/2.,q0)
 
 
 # ROTATIONAL GATES
