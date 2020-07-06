@@ -71,7 +71,7 @@ spec:
           - circuit:
               from: '{{steps.create-circuit.outputs.artifacts.circuit}}'
           parameters:
-          - backend-specs: "{'module_name': 'qeforest.simulator', 'function_name': 'ForestSimulator'}"
+          - backend-specs: "{'module_name': 'qeforest.simulator', 'function_name': 'ForestSimulator', 'device_name': 'WavefunctionSimulator'}"
           - resources: [z-quantum-core, qe-forest, get-circuit]
           - docker-image: z-quantum-default
           - docker-tag: latest
