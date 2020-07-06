@@ -6,9 +6,6 @@ spec:
     parent: generic-task
     inputs:
       parameters:
-      - name: species1
-      - name: species2
-      - name: bond-length
       - name: command
         value: python3 main_script.py
       artifacts:
@@ -17,14 +14,16 @@ spec:
         raw:
           data: |
             import json
-            from get_circuit import create_diatomic_molecule_geometry
-            geometry = create_diatomic_molecule_geometry('{{inputs.parameters.species1}}',
-                                                         '{{inputs.parameters.species2}}',
-                                                         {{inputs.parameters.bond-length}})
+            from zquantum.core.circuit import Circuit
+            from get_circuit import get_ising
 
-            geometry['schema'] = "molecular_geometry"
-            with open('molecule.json', 'w') as f:
-              f.write(json.dumps(geometry))
+            qk_ising_circuit = get_ising()
+            ising_circuit = Circuit(qk_ising_circuit)
+            ising_dict = ising_circuit.to_dict()
+
+            #ising_circuit['schema'] = "ising_circuit"
+            with open('circuit.json', 'w') as f:
+              f.write(json.dumps(ising_dict))
     outputs:
       artifacts:
       - name: circuit

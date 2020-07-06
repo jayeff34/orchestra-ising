@@ -1,0 +1,77 @@
+# Workflow API version
+ZapOSApiVersion: v1alpha1
+
+# Declares this as workflow
+kind: Workflow
+
+# List resources needed by workflow.
+resources:
+
+- name: get-circuit
+  type: git
+  parameters:
+    url: "git@github.com:jayeff34/orquestra-ising.git"
+    branch: "master"
+- name: z-quantum-core
+  type: git
+  parameters:
+    url: "git@github.com:zapatacomputing/z-quantum-core.git"
+    branch: "master"
+- name: qe-openfermion
+  type: git
+  parameters:
+    url: "git@github.com:zapatacomputing/qe-openfermion.git"
+    branch: "master"
+- name: qe-psi4
+  type: git
+  parameters:
+    url: "git@github.com:zapatacomputing/qe-psi4.git"
+    branch: "master"
+
+# Data to help you easily work with your workflow
+metadata:
+
+  # Prefix for workflow ID
+  generateName: isingtest-
+
+# Data for running the workflow
+spec:
+
+  # Think of this as identifying the `main` function -- this tells the workflow which template to start with
+  entrypoint: main
+
+  # Initializing global variables for use in workflow
+  arguments:
+    parameters:
+
+    # Where output data is stored -- Must be `quantum-engine` for compatibility with Orquestra data services
+    - s3-bucket: quantum-engine
+    # Path where output data is stored within the `s3-bucket` -- can be anything you want
+    - s3-key: jf_ising1/
+
+  # The steps of the workflow
+  templates:
+  - name: main
+    steps:
+
+    # Create the circuit
+    - - name: create-circuit
+        template: get-circuit
+        arguments:
+          parameters:
+          - resources: [z-quantum-core, get-circuit]
+          - docker-image: z-quantum-default
+          - docker-tag: latest
+
+    # Run the quantum circuit
+    - - name: run-circuit
+        template: run-circuit-and-measure
+        arguments:
+          artifacts:
+          - circuit:
+              from: '{{steps.create-circuit.outputs.artifacts.circuit}}'
+          parameters:
+          - backend-specs: "{'module_name': 'qeqhipster.simulator', 'function_name': 'QHipsterSimulator'}"
+          - resources: [z-quantum-core, get-circuit]
+          - docker-image: z-quantum-default
+          - docker-tag: latest
