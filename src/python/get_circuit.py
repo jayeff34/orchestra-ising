@@ -62,7 +62,7 @@ def F0(qp,q0,q1):
 
 def F1(qp,q0,q1):
     F2(qp,q0,q1)
-    RZ(qp,-math.pi/2.,q0)
+    RZ(qp,-pi/2.,q0)
 
 
 # ROTATIONAL GATES
